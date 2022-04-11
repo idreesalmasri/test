@@ -4,7 +4,7 @@ const app = express()
 const bcrypt = require('bcrypt')
 const { users } = require('./models/index.js');
 const authentication = require('./middlewares/baicAuth.js');
-// const bearerAuth = require('./middlewares/bearerAuth');
+const bearerAuth = require('./middlewares/bearerAuth');
 
 
 
@@ -39,9 +39,9 @@ app.get("/register", (req, res) => {
     res.render('register.ejs');
 })
 
-// app.get("/secret",bearerAuth,async (req, res) => {
-//     res.status(200).json(req.user);
-// })
+app.get("/secret",bearerAuth,async (req, res) => {
+    res.status(200).json(req.user);
+})
 function start(port) {
     app.listen(port,()=>{
         console.log(`running on port ${port}`)

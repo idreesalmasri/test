@@ -1,15 +1,16 @@
 'use strict';
 
-// const server = require('../server.js');
-// var express = require('express') 
-// var app = express() 
-// var cookieParser = require('cookie-parser')
-// app.use(cookieParser())
+
+var express = require('express') 
+var cookieParser = require('cookie-parser')
+var app = express() 
+
+app.use(cookieParser())
 const bcrypt = require('bcrypt');
 require('dotenv').config();
 var jwt = require('jsonwebtoken');
 const { users } = require('../models/index');
-const SECRET = process.env.SECRET;
+const SECRET = process.env.SECRET || "test";
 const authentication = async (req, res, next) => {
 try{
     if (req.body) {
@@ -22,15 +23,17 @@ try{
 
             req.user = user;
             let newToken = jwt.sign({username:user.username},SECRET,{expiresIn : 900000});
-            console.log("-----------------",newToken)
-            res.cookie('auth',newToken);
+            // console.log("-----------------",newToken)
+            res.cookie("jwt",newToken,{
+                httpOnly:true
+            });
         
         
             user.token=newToken;
             // req.token = userToken;
             // req.body.token=newToken;
             
-            console.log("===================",req.body)
+            // console.log("===================",user.token)
             next();
         } else {
             // return next(null, false, { message: 'Password incorrect' })
