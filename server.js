@@ -32,7 +32,9 @@ res.send({"message":"hello"});
     // res.sendFile(__dirname + "/index.html");
 })
 app.get("/login", (req, res) => {
+    
     // res.render('login.ejs');
+    res.send({"message":"hello"});
 })
 
 app.post("/register", async (req, res) => {
@@ -57,6 +59,7 @@ app.post('/login',authentication,(req,res)=>{
     
 })
 app.get("/register", (req, res) => {
+    res.send({"message":"hello"});
     // res.render('register.ejs');
 })
 
